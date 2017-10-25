@@ -27,20 +27,8 @@ public class PlusMinus {
             this.type = Type.select(value);
         }
 
-        int getValue() {
-            return value;
-        }
-
         Type getType() {
             return type;
-        }
-
-        @Override
-        public String toString() {
-            return "Number{" +
-                    "value=" + value +
-                    ", type=" + type +
-                    '}';
         }
     }
 
@@ -55,9 +43,13 @@ public class PlusMinus {
         Map<Type, Long> result = numbers.stream()
                 .collect(groupingBy(Number::getType, counting()));
 
-        System.out.println(new BigDecimal((double) result.get(Type.PLUS) / (double) numbers.size(), new MathContext(6)));
-        System.out.println(new BigDecimal((double) result.get(Type.MINUS) / (double) numbers.size(), new MathContext(6)));
-        System.out.println(new BigDecimal((double) result.get(Type.ZERO) / (double) numbers.size(), new MathContext(6)));
+        double positiveFraction = (double) result.getOrDefault(Type.PLUS, 0L) / (double) numbers.size();
+        double negativeFraction = (double) result.getOrDefault(Type.MINUS, 0L) / (double) numbers.size();
+        double zeroFraction = (double) result.getOrDefault(Type.ZERO, 0L) / (double) numbers.size();
+
+        System.out.println(new BigDecimal(positiveFraction, new MathContext(6)));
+        System.out.println(new BigDecimal(negativeFraction, new MathContext(6)));
+        System.out.println(new BigDecimal(zeroFraction, new MathContext(6)));
     }
 }
 

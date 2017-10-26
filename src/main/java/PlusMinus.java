@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
 
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
@@ -18,30 +19,16 @@ public class PlusMinus {
         }
     }
 
-    static class Number {
-        private int value;
-        private Type type;
-
-        Number(int value) {
-            this.value = value;
-            this.type = Type.select(value);
-        }
-
-        Type getType() {
-            return type;
-        }
-    }
-
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
-        List<Number> numbers = new ArrayList<>();
+        List<Type> numbers = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            numbers.add(new Number(in.nextInt()));
+            numbers.add(Type.select(in.nextInt()));
         }
 
         Map<Type, Long> result = numbers.stream()
-                .collect(groupingBy(Number::getType, counting()));
+                .collect(groupingBy(Function.identity(), counting()));
 
         double positiveFraction = (double) result.getOrDefault(Type.PLUS, 0L) / (double) numbers.size();
         double negativeFraction = (double) result.getOrDefault(Type.MINUS, 0L) / (double) numbers.size();

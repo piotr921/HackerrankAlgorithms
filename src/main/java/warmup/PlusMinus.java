@@ -1,3 +1,5 @@
+package warmup;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;

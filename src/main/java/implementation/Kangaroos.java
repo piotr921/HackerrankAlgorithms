@@ -8,7 +8,7 @@ public class Kangaroos {
             return "NO";
         }
 
-        if ((x1 - x2) / (v1 - v2) < 0) {
+        if ((x1 - x2) / (v1 - v2) > 0) {
             return "NO";
         }
 
